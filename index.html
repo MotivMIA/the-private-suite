@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ==============================
+       Global Document Metadata
+       ============================== -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{BusinessDescription}" />
+
+  <title>{BusinessName}</title>
+
+  <!-- ==============================
+       Global Styles
+       ============================== -->
+  <link rel="stylesheet" href="/assets/css/main.css" />
+
+  <!-- ==============================
+       Configuration (Source of Truth)
+       Must load before runtime logic
+       ============================== -->
+  <script src="/config/site.config.js" defer></script>
+
+  <!-- ==============================
+       Core Runtime Logic
+       ============================== -->
+  <script src="/assets/js/binder.js" defer></script>
+  <script src="/assets/js/router.js" defer></script>
+</head>
+
+<body>
+  <!-- ==============================
+       Persistent Global UI
+       ============================== -->
+
+  <header id="site-header" role="banner">
+    <!-- Header content injected dynamically -->
+  </header>
+
+  <nav id="site-nav" role="navigation">
+    <!-- Navigation injected dynamically -->
+  </nav>
+
+  <!-- ==============================
+       Primary Application Mount Point
+       DO NOT REMOVE OR DUPLICATE
+       ============================== -->
+  <main id="app" role="main" aria-live="polite">
+    <!-- Pages are injected here by the router -->
+  </main>
+
+  <footer id="site-footer" role="contentinfo">
+    <!-- Footer content injected dynamically -->
+  </footer>
+
+  <!-- ==============================
+       Global Utility Containers (Future)
+       ============================== -->
+  <div id="modal-root" aria-hidden="true"></div>
+  <div id="toast-root" aria-live="assertive"></div>
+</body>
+</html>
