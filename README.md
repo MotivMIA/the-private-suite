@@ -1,3 +1,6 @@
+Status: FOUNDATION LOCKED
+
+
 # The Private Suite
 
 ## Overview

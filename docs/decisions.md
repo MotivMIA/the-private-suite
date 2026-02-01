@@ -1,0 +1,1 @@
+We chose HTML-first over JSX to preserve inspectability and AI collaboration.
