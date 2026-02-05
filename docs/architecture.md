@@ -121,3 +121,21 @@ Visitor
 
 This mechanism is intentionally client-side only in Stage 2 and
 will be mirrored server-side in later stages.
+
+## Consent Gate (Stage 2)
+
+The application enforces a session-based legal consent gate
+before granting access to protected areas (e.g., dashboard).
+
+- Consent is required for:
+  - Email signup
+  - Third-party signup (Google, X)
+- Consent is stored in sessionStorage only
+- No cookies or persistence are used
+- Guard logic exists at the page level (Stage 2)
+- Router awareness exists but does not enforce (Stage 3)
+
+This design allows:
+- Immediate legal compliance
+- Frontend-only implementation
+- Seamless upgrade to real authentication later

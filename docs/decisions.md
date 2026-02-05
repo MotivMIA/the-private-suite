@@ -29,3 +29,17 @@ Each utility listens only for the events it needs and never calls other utilitie
 - Slightly more ceremony
 - Stronger guarantees
 - Easier long-term maintenance
+
+### Stage 2 Consent Handling
+
+Decision:
+Legal consent is enforced via a session-based modal gate
+prior to granting access to protected routes.
+
+Rationale:
+- Mirrors industry-standard adult platforms (e.g., OnlyFans)
+- Avoids premature backend coupling
+- Keeps legal acknowledgment explicit and auditable
+
+Status:
+Accepted — Stage 2

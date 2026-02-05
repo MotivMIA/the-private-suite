@@ -68,10 +68,11 @@ const ROUTER_CONFIG = {
     ]
   };
 
-const additionalRoutes = {
-  "/apply": "/pages/apply.html",
-  "/dashboard": "/pages/dashboard.html"
-};
+  const PROTECTED_ROUTES = ["/dashboard"];
+
+  if (PROTECTED_ROUTES.includes(path)) {
+    window.dispatchEvent(new Event("route:protected"));
+  }
   
   //MARK: DOM References
   
