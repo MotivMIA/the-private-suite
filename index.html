@@ -5,6 +5,7 @@
        Global Document Metadata
        ============================== -->
   <meta charset="UTF-8" />
+  <link rel="icon" href="/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{BusinessDescription}" />
 
@@ -19,13 +20,17 @@
        Configuration (Source of Truth)
        Must load before runtime logic
        ============================== -->
-  <script src="/config/site.config.js" defer></script>
+  <script src="/config/site.config.js"></script>
+  <script src="/config/config.schema.js"></script>
+  <script src="/assets/js/config-validator.js"></script>
 
   <!-- ==============================
        Core Runtime Logic
        ============================== -->
-  <script src="/assets/js/binder.js" defer></script>
   <script src="/assets/js/router.js" defer></script>
+  <script src="/assets/js/section-loader.js" defer></script>
+  <script src="/assets/js/binder.js" defer></script>
+
 </head>
 
 <body>
@@ -35,6 +40,8 @@
 
   <header id="site-header" role="banner">
     <!-- Header content injected dynamically -->
+    <link rel="icon" href="/favicon.ico" />
+    <section data-include="/sections/header.html"></section>
   </header>
 
   <nav id="site-nav" role="navigation">
@@ -51,6 +58,7 @@
 
   <footer id="site-footer" role="contentinfo">
     <!-- Footer content injected dynamically -->
+     <section data-include="/sections/footer.html"></section>
   </footer>
 
   <!-- ==============================

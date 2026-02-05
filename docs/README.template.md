@@ -1,3 +1,6 @@
+Status: FOUNDATION LOCKED
+
+
 # Web Application Template — Authoritative Specification
 
 > **Status:** FROZEN
@@ -363,3 +366,4 @@ Once a project forks this template:
 ---
 
 **END OF AUTHORITATIVE TEMPLATE SPECIFICATION**
+ 

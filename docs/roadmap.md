@@ -1,4 +1,15 @@
-# The Private Suite — Feature Roadmap
+# The Private Suite
+# Feature Roadmap
+
+This roadmap defines the phased development of a **brand-agnostic web application platform**.
+
+Business-specific branding, content, and workflows are intentionally deferred.
+The initial phases focus on building a reusable foundation suitable for:
+- Creator platforms
+- Link-in-bio tools
+- Management dashboards
+- Authenticated SaaS-style applications
+
 
 This document defines **what is built, in what order, and what is intentionally excluded**
 at each stage of the project.

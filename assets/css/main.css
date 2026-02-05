@@ -1,0 +1,64 @@
+/* ██████████████████████████████████████████████████
+   MAIN STYLESHEET
+   TEMPLATE BASE
+   ██████████████████████████████████████████████████ */
+
+/* ==================================================
+   DESIGN TOKENS
+   ================================================== */
+
+   :root {
+    --color-error: #ff4d4d;
+  }
+  
+/* ==================================================
+   FAILURE STATES
+   ================================================== */
+  
+.bind-error,
+.section-error {
+  color: var(--color-error);
+  font-weight: 600;
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-style: normal;
+}
+
+.config-fatal-error {
+  color: #ff4d4d;
+  padding: 2rem;
+  font-family: monospace;
+}
+
+  
+/* ==================================================
+   GLOBAL HEADER & FOOTER
+   ================================================== */
+
+.site-header,
+.site-footer {
+  padding: 1rem 1.25rem;
+}
+
+.site-header {
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.site-footer {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  opacity: 0.85;
+}
+
+/* ==================================================
+   Auth Visibility Gates
+   ================================================== */
+
+   body[data-auth="guest"] .requires-auth {
+    display: none;
+  }
+  
+  body[data-auth="authenticated"] .guest-only {
+    display: none;
+  }
+  

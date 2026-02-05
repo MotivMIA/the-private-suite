@@ -83,13 +83,13 @@ async function loadSections(root = document, pass = 0) {
 //MARK: Event Bindings
 
 window.addEventListener('content:loaded', () => {
-  const app = document.getElementById('app');
-  if (app) loadSections(app);
+  loadSections(document);
 });
+
 
 //MARK: Initial Boot Fallback
 
 document.addEventListener('DOMContentLoaded', () => {
-  const app = document.getElementById('app');
-  if (app) loadSections(app);
+  loadSections(document);
 });
+
