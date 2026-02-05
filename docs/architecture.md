@@ -103,3 +103,21 @@ The following are considered **stable**:
 - Lifecycle event names
 
 Anything else may evolve.
+
+## Stage 2 — Access & Consent Flow
+
+The Private Suite enforces a pre-auth legal consent gate prior to granting access
+to any authenticated or semi-authenticated areas (e.g., dashboard).
+
+Flow (frontend-only, session scoped):
+
+Visitor
+ → Apply / Signup Intent
+ → Legal Consent Modal
+   → Accept (sessionStorage flag set)
+     → Dashboard Placeholder
+   → Reject
+     → Access denied
+
+This mechanism is intentionally client-side only in Stage 2 and
+will be mirrored server-side in later stages.

@@ -260,3 +260,16 @@ This prevents premature commitment while preserving architectural intent.
 * The Private Suite fork will activate the full structure
 
 This document reconciles the original plan with the frozen template architecture.
+
+### Authentication Abstraction (Planned)
+
+Authentication is provider-agnostic and abstracted behind a single interface.
+
+Planned providers:
+- Email (default)
+- Google OAuth
+- X (Twitter) OAuth
+- Biometric / device-based (future)
+
+No provider-specific logic is embedded in UI components.
+All auth calls will route through a centralized adapter.

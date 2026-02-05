@@ -96,5 +96,10 @@
   document.addEventListener("DOMContentLoaded", runBinder);
   window.addEventListener("content:loaded", runBinder);
   window.addEventListener("content:hydrated", runBinder);
-
+  document.addEventListener("submit", (e) => {
+    if (e.target.closest(".apply-form")) {
+      e.preventDefault();
+      alert("Application received. Access is granted after review.");
+    }
+  });
 })();

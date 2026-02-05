@@ -11,15 +11,15 @@
   
     brand: {
       identity: {
-        name: '',
-        tagline: '',
-        description: ''
+        name: 'The Private Suite',
+        tagline: 'Your exclusive access to luxury',
+        description: 'The Private Suite offers a unique and personalized experience for our members, providing access to exclusive content and services.'
       },
   
       contact: {
-        address: '',
-        email: '',
-        phone: ''
+        address: '123 Private Suite Lane, Miami, FL 33101',
+        email: 'info@theprivatesuite.com',
+        phone: '(123) 456-7890'
       },
   
       social: {
@@ -37,14 +37,15 @@
     },
   
     legal: {
-      privacyUrl: '',
+      privacyUrl: '/privacy',
       termsUrl: '',
       copyrightYear: ''
     },
   
     cta: {
       primary: '',
-      applyUrl: ''
+      applyUrl: '',
+      commissionRate: "20%"
     },
   
     features: {

@@ -107,3 +107,42 @@ const ROUTER_CONFIG = {
     loadRoute(route);
   });
   
+  //MARK: Legal Pages Mapping
+  
+  const legalPages = [
+    {
+      path: "/privacy",
+      page: "/pages/legal/privacy.html",
+      title: "Privacy Policy"
+    },
+    {
+      path: "/terms",
+      page: "/pages/legal/terms.html",
+      title: "Terms and Conditions"
+    },
+    {
+      path: "/refunds",
+      page: "/pages/legal/refunds.html",
+      title: "Refund Policy"
+    },
+    {
+      path: "/dmca",
+      page: "/pages/legal/dmca.html",
+      title: "DMCA Policy"
+    },
+    {
+      path: "/conduct",
+      page: "/pages/legal/conduct.html",
+      title: "Code of Conduct"
+    },
+    {
+      path: "/accessibility",
+      page: "/pages/legal/accessibility.html",
+      title: "Accessibility"
+    },
+    {
+      path: "/contact",
+      page: "/pages/legal/contact.html",
+      title: "Contact"
+    }
+  ];
