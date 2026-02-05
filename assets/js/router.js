@@ -18,8 +18,60 @@
 const ROUTER_CONFIG = {
     pagesPath: '/pages',
     defaultRoute: 'home',
-    notFoundRoute: '404'
+    notFoundRoute: '404',
+    routes: [
+      {
+        path: "/privacy",
+        page: "/pages/legal/privacy.html",
+        title: "Privacy Policy"
+      },
+      {
+        path: "/terms",
+        page: "/pages/legal/terms.html",
+        title: "Terms and Conditions"
+      },
+      {
+        path: "/refunds",
+        page: "/pages/legal/refunds.html",
+        title: "Refund Policy"
+      },
+      {
+        path: "/dmca",
+        page: "/pages/legal/dmca.html",
+        title: "DMCA Policy"
+      },
+      {
+        path: "/conduct",
+        page: "/pages/legal/conduct.html",
+        title: "Code of Conduct"
+      },
+      {
+        path: "/accessibility",
+        page: "/pages/legal/accessibility.html",
+        title: "Accessibility"
+      },
+      {
+        path: "/contact",
+        page: "/pages/legal/contact.html",
+        title: "Contact"
+      },
+      {
+        path: "/apply",
+        page: "/pages/apply.html",
+        title: "Apply"
+      },
+      {
+        path: "/dashboard",
+        page: "/pages/dashboard.html",
+        title: "Dashboard"
+      }
+    ]
   };
+
+const additionalRoutes = {
+  "/apply": "/pages/apply.html",
+  "/dashboard": "/pages/dashboard.html"
+};
   
   //MARK: DOM References
   
@@ -106,43 +158,3 @@ const ROUTER_CONFIG = {
     const route = normalizeRoute(window.location.pathname);
     loadRoute(route);
   });
-  
-  //MARK: Legal Pages Mapping
-  
-  const legalPages = [
-    {
-      path: "/privacy",
-      page: "/pages/legal/privacy.html",
-      title: "Privacy Policy"
-    },
-    {
-      path: "/terms",
-      page: "/pages/legal/terms.html",
-      title: "Terms and Conditions"
-    },
-    {
-      path: "/refunds",
-      page: "/pages/legal/refunds.html",
-      title: "Refund Policy"
-    },
-    {
-      path: "/dmca",
-      page: "/pages/legal/dmca.html",
-      title: "DMCA Policy"
-    },
-    {
-      path: "/conduct",
-      page: "/pages/legal/conduct.html",
-      title: "Code of Conduct"
-    },
-    {
-      path: "/accessibility",
-      page: "/pages/legal/accessibility.html",
-      title: "Accessibility"
-    },
-    {
-      path: "/contact",
-      page: "/pages/legal/contact.html",
-      title: "Contact"
-    }
-  ];
