@@ -123,3 +123,14 @@
     opacity: 0.7;
     text-align: center;
   }
+
+  .trust-list {
+    margin-top: 2rem;
+    padding-left: 1.25rem;
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+  
+  .trust-list li {
+    margin-bottom: 0.4rem;
+  }

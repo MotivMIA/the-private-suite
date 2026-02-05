@@ -43,3 +43,14 @@ Rationale:
 
 Status:
 Accepted — Stage 2
+
+### Stage 3 Scope Lock
+
+Out of scope:
+- OAuth implementation
+- User persistence
+- Cookies / JWTs
+- Third-party SDKs
+
+Reason:
+Prevent premature coupling and security debt.

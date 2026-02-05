@@ -11,7 +11,7 @@
        Primary Signup Method (Email)
        ============================== -->
 
-  <form class="apply-form" novalidate>
+       <form class="apply-form" id="email-apply-form" novalidate>
 
     <label>
       Name
@@ -56,16 +56,21 @@
       <span>or</span>
     </div>
 
-    <button class="oauth google" type="button">
+    <button class="oauth google" type="button" data-provider="google">
       Continue with Google
     </button>
 
-    <button class="oauth x" type="button">
+    <button class="oauth x" type="button" data-provider="x">
       Continue with X
     </button>
 
   </div>
 
+  <ul class="trust-list">
+    <li>18+ only · ID verified</li>
+    <li>Platform-compliant management</li>
+    <li>No upfront fees</li>
+  </ul>
   <!-- ==============================
        Post-Submit Placeholder State
        ============================== -->
@@ -76,20 +81,4 @@
 
 </section>
 
-<script>
-  document.getElementById("email-signup-form").addEventListener("submit", e => {
-    e.preventDefault();
-    requireConsent(() => {
-      window.location.href = "/dashboard";
-    });
-  });
-
-  document.querySelectorAll("[data-provider]").forEach(btn => {
-    btn.addEventListener("click", () => {
-      requireConsent(() => {
-        window.location.href = "/dashboard";
-      });
-    });
-  });
-</script>
 

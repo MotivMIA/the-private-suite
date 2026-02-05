@@ -139,3 +139,14 @@ This design allows:
 - Immediate legal compliance
 - Frontend-only implementation
 - Seamless upgrade to real authentication later
+
+## Authentication Architecture (Stage 3 – Design Only)
+
+Authentication is modeled as a multi-state lifecycle:
+anonymous → consented → authenticated → authorized.
+
+No provider logic exists in Stage 3.
+All authentication flows must conform to the Auth Interface.
+
+Providers are implemented via adapters to prevent vendor coupling.
+The router will gain meta-based guards in a later stage.
