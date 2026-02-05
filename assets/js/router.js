@@ -70,7 +70,8 @@ const ROUTER_CONFIG = {
 
   const PROTECTED_ROUTES = ["/dashboard"];
 
-  if (PROTECTED_ROUTES.includes(path)) {
+  const currentPath = normalizeRoute(window.location.pathname);
+  if (PROTECTED_ROUTES.includes(currentPath)) {
     window.dispatchEvent(new Event("route:protected"));
   }
   
@@ -114,6 +115,12 @@ const ROUTER_CONFIG = {
   async function loadRoute(route) {
     if (!APP_ROOT) return;
   
+    // Check if the route is protected
+    if (PROTECTED_ROUTES.includes(route) && !isAuthenticated()) {
+      APP_ROOT.innerHTML = renderNotAuthorized();
+      return;
+    }
+  
     APP_ROOT.setAttribute('aria-busy', 'true');
   
     const html = await fetchPage(route);
@@ -125,6 +132,21 @@ const ROUTER_CONFIG = {
     if (window.dispatchEvent) {
       window.dispatchEvent(new Event('content:loaded'));
     }
+  }
+  
+  function isAuthenticated() {
+    // Placeholder for authentication logic
+    // Replace with actual authentication check
+    return window.localStorage.getItem('authToken') !== null;
+  }
+  
+  function renderNotAuthorized() {
+    return `
+      <section class="route-error">
+        <h1>401</h1>
+        <p>You are not authorized to access this page. Please log in.</p>
+      </section>
+    `;
   }
   
   function navigateTo(path) {
