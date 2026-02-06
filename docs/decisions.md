@@ -54,3 +54,23 @@ Out of scope:
 
 Reason:
 Prevent premature coupling and security debt.
+
+## Decision: Third-Party Authentication with Post-Auth Consent Gate
+
+We intentionally delegate authentication to third-party providers.
+
+### Rationale
+
+- Reduces security and compliance burden
+- Avoids storing sensitive credentials
+- Aligns with industry precedent (e.g. OnlyFans)
+- Enables rapid iteration without backend coupling
+
+Consent is enforced **after authentication**, not before.
+
+This ensures:
+- Legal affirmation is tied to an identity
+- No user accesses the platform without explicit agreement
+- Clean separation between identity and authorization
+
+This decision is frozen until a new template version is introduced.

@@ -1,3 +1,14 @@
+import SITE_CONFIG from './config/site.config.js';
+
+if (!SITE_CONFIG) {
+  console.error("SITE_CONFIG is missing or not properly loaded.");
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('Binder initialized with SITE_CONFIG:', SITE_CONFIG);
+  // Add any additional initialization logic here
+});
+
 /**
  * Template Binder
  * Replaces {placeholders} with values from site.config.js
@@ -5,12 +16,12 @@
  */
 
 (function () {
-  if (!window.SITE_CONFIG) {
+  if (!SITE_CONFIG) {
     console.error("SITE_CONFIG is missing.");
     return;
   }
 
-  const CONFIG = window.SITE_CONFIG;
+  const CONFIG = SITE_CONFIG;
 
   function resolvePath(obj, path) {
     return path.split('.').reduce((acc, key) => {

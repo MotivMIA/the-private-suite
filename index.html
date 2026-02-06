@@ -1,69 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- ==============================
-       Global Document Metadata
-       ============================== -->
   <meta charset="UTF-8" />
   <link rel="icon" href="/favicon.ico" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{BusinessDescription}" />
-
   <title>{BusinessName}</title>
 
-  <!-- ==============================
-       Global Styles
-       ============================== -->
-  <link rel="stylesheet" href="/assets/css/main.css" />
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="assets/css/main.css" />
 
-  <!-- ==============================
-       Configuration (Source of Truth)
-       Must load before runtime logic
-       ============================== -->
-  <script src="/config/site.config.js"></script>
-  <script src="/config/config.schema.js"></script>
-  <script src="/assets/js/config-validator.js"></script>
+  <!-- Configuration -->
+  <script type="module" src="assets/js/config/site.config.js" defer></script>
+  <script type="module" src="assets/js/config/config.schema.js" defer></script>
+  <script type="module" src="assets/js/config-validator.js" defer></script>
 
-  <!-- ==============================
-       Core Runtime Logic
-       ============================== -->
-  <script src="/assets/js/router.js" defer></script>
-  <script src="/assets/js/section-loader.js" defer></script>
-  <script src="/assets/js/binder.js" defer></script>
-
+  <!-- Core Runtime -->
+  <script type="module" src="assets/js/binder.js" defer></script>
+  <script type="module" src="assets/js/router.js" defer></script>
+  <script type="module" src="assets/js/section-loader.js" defer></script>
+  <script type="module" src="assets/js/ui.js" defer></script>
 </head>
-
 <body>
-  <!-- ==============================
-       Persistent Global UI
-       ============================== -->
-
   <header id="site-header" role="banner">
-    <!-- Header content injected dynamically -->
-    <link rel="icon" href="/favicon.ico" />
     <section data-include="/sections/header.html"></section>
   </header>
-
-  <nav id="site-nav" role="navigation">
-    <!-- Navigation injected dynamically -->
-  </nav>
-
-  <!-- ==============================
-       Primary Application Mount Point
-       DO NOT REMOVE OR DUPLICATE
-       ============================== -->
-  <main id="app" role="main" aria-live="polite">
-    <!-- Pages are injected here by the router -->
-  </main>
-
+  <main id="app" role="main" aria-live="polite"></main>
   <footer id="site-footer" role="contentinfo">
-    <!-- Footer content injected dynamically -->
-     <section data-include="/sections/footer.html"></section>
+    <section data-include="/sections/footer.html"></section>
   </footer>
-
-  <!-- ==============================
-       Global Utility Containers (Future)
-       ============================== -->
   <div id="modal-root" aria-hidden="true"></div>
   <div id="toast-root" aria-live="assertive"></div>
 </body>

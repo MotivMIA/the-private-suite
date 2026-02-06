@@ -1,137 +1,261 @@
 /* ██████████████████████████████████████████████████
-   MAIN STYLESHEET
-   TEMPLATE BASE
+   main.css
+   Merged old + new styles for The Private Suite
    ██████████████████████████████████████████████████ */
 
-/* ==================================================
-   DESIGN TOKENS
-   ================================================== */
-
-   :root {
-    --color-error: #ff4d4d;
+/* =======================
+   Reset & Base
+   ======================= */
+   * { box-sizing: border-box; margin: 0; padding: 0; }
+   body { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.5; color: #1a1a1a; background-color: #f9f9f9; }
+   a { text-decoration: none; color: #0066cc; }
+   a:hover { text-decoration: underline; }
+   
+   body[data-route="dashboard"] #site-header {
+    position: sticky;
   }
   
-/* ==================================================
-   FAILURE STATES
-   ================================================== */
-  
-.bind-error,
-.section-error {
-  color: var(--color-error);
-  font-weight: 600;
-  background: none;
-  padding: 0;
-  border-radius: 0;
-  font-style: normal;
+  body[data-route="apply"] #site-header {
+    border-bottom: none;
+  }
+   /* =======================
+      Design Tokens & Errors
+      ======================= */
+   :root { --color-error: #ff4d4d; }
+   .bind-error, .section-error { color: var(--color-error); font-weight: 600; background: none; padding: 0; border-radius: 0; font-style: normal; }
+   .config-fatal-error { color: var(--color-error); padding: 2rem; font-family: monospace; }
+   
+   /* =======================
+      Header & Footer
+      ======================= */
+   .site-header, .site-footer { padding: 1rem 1.25rem; }
+   .site-header { border-bottom: 1px solid rgba(255,255,255,0.08); }
+   .site-footer { border-top: 1px solid rgba(255,255,255,0.08); opacity: 0.85; }
+   /* ============================================================
+   Header visibility by route
+   ============================================================ */
+
+/* Hide header ONLY on home route */
+body[data-route="home"] #site-header {
+  display: none;
 }
 
-.config-fatal-error {
-  color: #ff4d4d;
+   /* =======================
+      Auth Visibility
+      ======================= */
+   body[data-auth="guest"] .requires-auth { display: none; }
+   body[data-auth="authenticated"] .guest-only { display: none; }
+   
+   /* =======================
+      Two-Pane Hero + Form
+      ======================= */
+/* --- Two-pane Hero/Form with fixed 50/50 split --- */
+.hero-form-container {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+/* Left pane (hero) */
+.hero-left {
+  width: 50%;
+  max-width: 50%;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center; /* horizontal centering */
+  align-items: center;     /* vertical centering */
   padding: 2rem;
-  font-family: monospace;
+  background-image: url('../images/hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-  
-/* ==================================================
-   GLOBAL HEADER & FOOTER
-   ================================================== */
-
-.site-header,
-.site-footer {
-  padding: 1rem 1.25rem;
+/* Right pane: form */
+.form-right {
+  flex: 1; /* half width */
+  display: flex;
+  justify-content: center; /* horizontal centering of form */
+  align-items: center;     /* vertical centering of form */
+  padding: 2rem;
+  background: #ffffff;
+  box-shadow: -2px 0 6px rgba(0,0,0,0.05);
+  overflow-y: auto;
+  min-height: 100vh;
 }
 
-.site-header {
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+/* Form container inside right pane */
+.form-right .section-apply {
+  max-width: 420px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.site-footer {
-  border-top: 1px solid rgba(255,255,255,0.08);
-  opacity: 0.85;
+/* Section Apply / Form inside right pane */
+.hero-right .section-apply {
+  max-width: 420px;
+  width: 100%;
+  padding: 2.5rem;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-/* ==================================================
-   Auth Visibility Gates
-   ================================================== */
+.hero-right .section-apply h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
 
-   body[data-auth="guest"] .requires-auth {
-    display: none;
-  }
-  
-  body[data-auth="authenticated"] .guest-only {
-    display: none;
-  }
-  
-/* ==================================================
-   APPLICATION FORM STYLES
-   ================================================== */
-  .apply {
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 4rem 1rem;
-  }
-  
-  .apply-header h1 {
-    margin-bottom: 0.5rem;
-  }
-  
-  .apply-form {
-    display: grid;
-    gap: 1rem;
-    margin-top: 2rem;
-  }
-  
-  .apply-form label {
-    display: flex;
+/* Smooth scroll for both panes */
+.hero-left, .hero-right {
+  scroll-behavior: smooth;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+  .hero-form-container {
     flex-direction: column;
-    font-size: 0.9rem;
-  }
-  
-  .apply-form input {
-    padding: 0.6rem;
-    font-size: 1rem;
-  }
-  
-  .primary {
-    margin-top: 1rem;
-  }
-  
-  .legal-disclaimer {
-    font-size: 0.8rem;
-    color: #c33;
-  }
-  
-  .alt-auth {
-    margin-top: 2rem;
-    text-align: center;
-  }
-  
-  .divider {
-    margin-bottom: 1rem;
-    font-size: 0.8rem;
-    opacity: 0.7;
-  }
-  
-  .oauth {
-    width: 100%;
-    margin-bottom: 0.5rem;
-  }
-  
-  .apply-note {
-    margin-top: 2rem;
-    font-size: 0.8rem;
-    opacity: 0.7;
-    text-align: center;
   }
 
-  .trust-list {
-    margin-top: 2rem;
-    padding-left: 1.25rem;
-    font-size: 0.85rem;
-    opacity: 0.75;
+  .hero-left, .hero-right {
+    width: 100%;
+    max-width: 100%;
+    min-height: 50vh;
   }
-  
-  .trust-list li {
-    margin-bottom: 0.4rem;
-  }
-  
+}
+   
+   /* =======================
+      Auth Methods
+      ======================= */
+   .auth-methods {
+     display: flex;
+     flex-direction: column;
+     gap: 0.75rem;
+     margin-bottom: 1rem;
+   }
+   .auth-methods .oauth {
+     padding: 0.75rem 1rem;
+     border-radius: 8px;
+     border: 1px solid #ccc;
+     cursor: pointer;
+     font-weight: 500;
+     transition: all 0.2s ease;
+   }
+   .auth-methods .oauth:hover { background-color: #e6e6e6; }
+   .auth-methods .oauth.email { border-color: #0066cc; color: #0066cc; background: #fff; }
+   .auth-methods .oauth.email:hover { background: #f0f8ff; }
+   .auth-methods .oauth.google { background-color: #4285f4; color: #fff; font-weight: bold; }
+   .auth-methods .oauth.x { background-color: #1da1f2; color: #fff; font-weight: bold; }
+   
+   /* =======================
+      Email Auth
+      ======================= */
+   .email-auth {
+     display: flex;
+     flex-direction: column;
+     gap: 1rem;
+     transition: all 0.3s ease;
+   }
+   .email-auth label { display: flex; flex-direction: column; font-size: 0.9rem; color: #333; }
+   .email-auth input { margin-top: 0.25rem; padding: 0.5rem 0.75rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+   .email-auth input:focus { border-color: #0066cc; outline: none; }
+   
+   /* =======================
+      Email Actions
+      ======================= */
+   .email-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+   .email-actions .btn-signup,
+   .email-actions .btn-back {
+     padding: 0.5rem 1rem;
+     border-radius: 6px;
+     border: none;
+     font-weight: 500;
+     cursor: pointer;
+     transition: background-color 0.2s ease;
+   }
+   .email-actions .btn-signup { background-color: #0066cc; color: #fff; }
+   .email-actions .btn-signup:hover { background-color: #005bb5; }
+   .email-actions .btn-back { background-color: #f2f2f2; color: #333; }
+   .email-actions .btn-back:hover { background-color: #e6e6e6; }
+   
+   /* =======================
+      Password Transition
+      ======================= */
+   .password-section,
+   .email-auth input,
+   .email-actions .btn-signup,
+   .email-actions .btn-back {
+     opacity: 0;
+     transform: translateY(10px);
+     transition: opacity 0.3s ease, transform 0.3s ease;
+   }
+   .password-section.visible,
+   .email-auth:not([hidden]) input,
+   .email-actions .btn-signup,
+   .email-actions .btn-back {
+     opacity: 1;
+     transform: translateY(0);
+   }
+   
+   /* =======================
+      Form Links & Legal
+      ======================= */
+   .form-links { margin-top: 1.25rem; font-size: 0.875rem; text-align: center; }
+   .form-links a { font-weight: 500; }
+   .legal-disclaimer { margin-top: 2rem; font-size: 0.75rem; color: #666; text-align: center; }
+   
+   /* =======================
+      Other Form & Trust Styles
+      ======================= */
+   .apply-note { margin-top: 2rem; font-size: 0.8rem; opacity: 0.7; text-align: center; }
+   .trust-list { margin-top: 2rem; padding-left: 1.25rem; font-size: 0.85rem; opacity: 0.75; }
+   .trust-list li { margin-bottom: 0.4rem; }
+   
+   /* =======================
+      Consent Modal
+      ======================= */
+   .consent-modal {
+     position: fixed;
+     top: 0; left: 0;
+     width: 100%; height: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     z-index: 1000;
+   }
+   .consent-modal .modal-backdrop {
+     position: absolute;
+     width: 100%; height: 100%;
+     background: rgba(0,0,0,0.5);
+   }
+   .consent-modal .modal-content {
+     position: relative;
+     background: white;
+     padding: 2rem;
+     border-radius: 8px;
+     max-width: 400px;
+     text-align: center;
+   }
+   .consent-modal .modal-footer button {
+     margin: 0 0.5rem;
+     padding: 0.5rem 1rem;
+   }
+   .modal[hidden] { display: none !important; }
+   
+   /* =======================
+      Two-Pane Responsive
+      ======================= */
+   @media (max-width: 768px) {
+     .hero-form-container { flex-direction: column; }
+     .hero-left, .form-right { width: 100%; min-height: auto; }
+   }
+
+   /* Hide header only on the homepage */
+body.page-home .site-header {
+  display: none;
+}

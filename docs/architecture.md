@@ -150,3 +150,44 @@ All authentication flows must conform to the Auth Interface.
 
 Providers are implemented via adapters to prevent vendor coupling.
 The router will gain meta-based guards in a later stage.
+
+## Authentication Architecture (Design-Only)
+
+Authentication is treated as an external system integrated via adapters.
+
+The frontend does not:
+- Store passwords
+- Perform credential validation
+- Implement OAuth directly
+
+Instead, it orchestrates UI state and consent gating.
+
+---
+
+### Planned Structure (Not Implemented)
+
+auth/
+├── index.js            (orchestrator)
+├── consent.js          (post-auth gate)
+└── providers/
+    ├── email.adapter.js
+    ├── google.adapter.js
+    └── x.adapter.js
+
+Each provider adapter exposes a uniform interface.
+
+---
+
+### Responsibility Boundary
+
+Third-party provider:
+- Identity verification
+- Credential storage
+- OAuth security
+- Session handling
+
+The Private Suite:
+- Consent enforcement
+- Age affirmation
+- Access control
+- UI orchestration

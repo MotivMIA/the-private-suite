@@ -1,85 +1,81 @@
-<section class="apply">
+<section class="section-apply">
 
-  <header class="apply-header">
-    <h1>Apply to The Private Suite</h1>
-    <p>Begin your application using email or an alternative sign-in method.</p>
-  </header>
+  <h1>Create your account</h1>
 
-  <ul class="trust-list">
-    <li>18+ only · ID verified</li>
-    <li>Platform-compliant management</li>
-    <li>No upfront fees</li>
-  </ul>
+  <!-- AUTH METHOD CHOICE -->
+  <div class="auth-methods">
 
-  <!-- form continues -->
-
-  <!-- ==============================
-       Primary Signup Method (Email)
-       ============================== -->
-
-       <form id="email-signup-form" class="apply-form" novalidate>
-
-    <label>
-      Name
-      <input type="text" name="name" placeholder="Your name" />
-    </label>
-
-    <label>
-      Email
-      <input type="email" name="email" placeholder="you@email.com" />
-    </label>
-
-    <label>
-      Password
-      <input type="password" name="password" placeholder="Create a password" />
-    </label>
-
-    <!-- ==============================
-         Inline Legal Disclaimer
-         ============================== -->
-
-    <p class="legal-disclaimer">
-      By continuing, you agree to our
-      <a href="/legal/terms-and-conditions">Terms &amp; Conditions</a>
-      and
-      <a href="/legal/privacy-policy">Privacy Policy</a>,
-      and confirm that you are at least <strong>18 years old</strong>.
-    </p>
-
-    <button type="submit" class="primary">
-      Continue with Email
+    <button type="button" class="oauth x" data-provider="x">
+      Sign up with X
     </button>
 
-  </form>
+    <hr>
 
-  <!-- ==============================
-       Alternative Signup Options
-       ============================== -->
-
-  <div class="alt-auth">
-
-    <div class="divider">
-      <span>or</span>
-    </div>
-
-    <button class="oauth google" type="button" data-provider="google">
-      Continue with Google
+    <button type="button" class="oauth email" data-auth="email">
+      Sign up with Email
     </button>
-    
-    <button class="oauth x" type="button" data-provider="x">
-      Continue with X
+
+    <button type="button" class="oauth apple" data-provider="apple">
+      Sign up with Apple
+    </button>
+
+    <button type="button" class="oauth google" data-provider="google">
+      Sign up with Google
     </button>
 
   </div>
 
-  <!-- ==============================
-       Post-Submit Placeholder State
-       ============================== -->
+  <!-- EMAIL FORM (HIDDEN BY DEFAULT) -->
+  <form id="auth-form" hidden novalidate>
 
-  <p class="apply-note">
-    Access is granted only after review.
+    <!-- SIGN UP -->
+    <div class="signup-fields">
+      <label>
+        Email
+        <input type="email" name="email" required />
+      </label>
+
+      <label>
+        Password
+        <input type="password" name="password" required />
+      </label>
+
+      <button type="submit" class="primary">
+        Create account
+      </button>
+    </div>
+
+    <!-- LOG IN -->
+    <div class="login-fields" hidden>
+      <label>
+        Email
+        <input type="email" name="email" required />
+      </label>
+
+      <label>
+        Password
+        <input type="password" name="password" required />
+      </label>
+
+      <button type="submit" class="primary">
+        Log in
+      </button>
+    </div>
+
+  </form>
+
+  <div class="form-links">
+    <p>
+      Already have an account?
+      <a href="#" class="switch-to-login">Log in</a>
+      <a href="#" class="switch-to-signup" hidden>Sign up</a>
+    </p>
+  </div>
+
+  <p class="legal-disclaimer">
+    By continuing, you agree to our
+    <a href="/legal/terms-and-conditions">Terms of service</a> and
+    <a href="/legal/privacy-policy">Privacy Policy</a>.
   </p>
 
 </section>
-
-

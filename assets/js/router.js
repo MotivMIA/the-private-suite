@@ -115,6 +115,9 @@ const ROUTER_CONFIG = {
   async function loadRoute(route) {
     if (!APP_ROOT) return;
   
+    // Route state on body (authoritative)
+    document.body.dataset.route = route;
+  
     // Check if the route is protected
     if (PROTECTED_ROUTES.includes(route) && !isAuthenticated()) {
       APP_ROOT.innerHTML = renderNotAuthorized();
