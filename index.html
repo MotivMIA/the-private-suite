@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" href="/favicon.ico" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{BusinessDescription}" />
   <title>{BusinessName}</title>
 
-  <!-- Global Styles -->
-  <link rel="stylesheet" href="assets/css/main.css" />
+  <!-- Design System Entry -->
+  <link rel="stylesheet" href="assets/css/app.css" />
 
   <!-- Configuration -->
   <script type="module" src="assets/js/config/site.config.js" defer></script>
@@ -21,14 +22,20 @@
   <script type="module" src="assets/js/section-loader.js" defer></script>
   <script type="module" src="assets/js/ui.js" defer></script>
 </head>
+
 <body>
   <header id="site-header" role="banner">
     <section data-include="/sections/header.html"></section>
   </header>
-  <main id="app" role="main" aria-live="polite"></main>
+
+  <main id="app" role="main" aria-live="polite">
+    <!-- router injects here -->
+  </main>
+
   <footer id="site-footer" role="contentinfo">
     <section data-include="/sections/footer.html"></section>
   </footer>
+
   <div id="modal-root" aria-hidden="true"></div>
   <div id="toast-root" aria-live="assertive"></div>
 </body>

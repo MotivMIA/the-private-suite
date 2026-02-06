@@ -1,27 +1,27 @@
 /* ██████████████████████████████████████████████████
    main.css
-   Merged old + new styles for The Private Suite
+   Full homepage + auth + modal styles (merged & cleaned)
    ██████████████████████████████████████████████████ */
 
 /* =======================
    Reset & Base
    ======================= */
    * { box-sizing: border-box; margin: 0; padding: 0; }
-   body { font-family: 'Inter', sans-serif; font-size: 16px; line-height: 1.5; color: #1a1a1a; background-color: #f9f9f9; }
+   html, body { height: 100%; }
+   body {
+     font-family: 'Inter', sans-serif;
+     font-size: 16px;
+     line-height: 1.5;
+     color: #1a1a1a;
+     background-color: #000000;
+   }
    a { text-decoration: none; color: #0066cc; }
    a:hover { text-decoration: underline; }
    
-   body[data-route="dashboard"] #site-header {
-    position: sticky;
-  }
-  
-  body[data-route="apply"] #site-header {
-    border-bottom: none;
-  }
    /* =======================
       Design Tokens & Errors
       ======================= */
-   :root { --color-error: #ff4d4d; }
+   :root { --color-error: #ff4d4d; --max-form-width: 420px; }
    .bind-error, .section-error { color: var(--color-error); font-weight: 600; background: none; padding: 0; border-radius: 0; font-style: normal; }
    .config-fatal-error { color: var(--color-error); padding: 2rem; font-family: monospace; }
    
@@ -29,17 +29,12 @@
       Header & Footer
       ======================= */
    .site-header, .site-footer { padding: 1rem 1.25rem; }
-   .site-header { border-bottom: 1px solid rgba(255,255,255,0.08); }
-   .site-footer { border-top: 1px solid rgba(255,255,255,0.08); opacity: 0.85; }
-   /* ============================================================
-   Header visibility by route
-   ============================================================ */
-
-/* Hide header ONLY on home route */
-body[data-route="home"] #site-header {
-  display: none;
-}
-
+   .site-header { border-bottom: 1px solid rgba(0,0,0,0.06); transition: top 0.3s ease, opacity 0.3s ease; background: white; z-index: 1000; }
+   .site-footer { border-top: 1px solid rgba(0,0,0,0.06); opacity: 0.85; }
+   
+   /* Header visibility by route (router sets data-route on body) */
+   body[data-route="home"] #site-header { display: none; }
+   
    /* =======================
       Auth Visibility
       ======================= */
@@ -47,87 +42,129 @@ body[data-route="home"] #site-header {
    body[data-auth="authenticated"] .guest-only { display: none; }
    
    /* =======================
-      Two-Pane Hero + Form
+      Two-Pane Hero + Form (default layout)
       ======================= */
-/* --- Two-pane Hero/Form with fixed 50/50 split --- */
-.hero-form-container {
-  display: flex;
-  flex-direction: row;
-  min-height: 100vh;
-}
-
+   .hero-form-container {
+     display: flex;
+     flex-direction: row;
+     min-height: 100vh;
+   }
+   
 /* Left pane (hero) */
 .hero-left {
   width: 50%;
   max-width: 50%;
-  overflow-y: auto;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
-  justify-content: center; /* horizontal centering */
-  align-items: center;     /* vertical centering */
+  justify-content: center;
+  align-items: center;
   padding: 2rem;
-  background-image: url('../images/hero-bg.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: relative;
+
+  /* Layer 1: image only */
+  background: url('../images/hero-bg.png') no-repeat 60% 25% / cover;
+  background-color: #0b0b0b;
+  opacity: 1; /* subtle fade for better text contrast */
 }
 
-/* Right pane: form */
-.form-right {
-  flex: 1; /* half width */
-  display: flex;
-  justify-content: center; /* horizontal centering of form */
-  align-items: center;     /* vertical centering of form */
-  padding: 2rem;
-  background: #ffffff;
-  box-shadow: -2px 0 6px rgba(0,0,0,0.05);
-  overflow-y: auto;
-  min-height: 100vh;
-}
+/* Layer 2 + Layer 3: gradient + top/bottom fade overlay */
+.hero-left::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
 
-/* Form container inside right pane */
-.form-right .section-apply {
-  max-width: 420px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
+  /* combine base gradient + edge fade */
+  background:
+    /* top & bottom fade */
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,0.5) 20%,
+      rgba(0,0,0,0) 50%,
+      rgba(0,0,0,0.5) 80%,
+      rgba(0,0,0,1) 100%
+    ), 
+    /* base gradient */
+    linear-gradient(
+      to bottom,
+      rgba(104,0,104,0.6),
+      rgba(0,0,0,0.5)
+    ); 
 
-/* Section Apply / Form inside right pane */
-.hero-right .section-apply {
-  max-width: 420px;
-  width: 100%;
-  padding: 2.5rem;
-  border-radius: 16px;
-  background: white;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.hero-right .section-apply h1 {
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-/* Smooth scroll for both panes */
-.hero-left, .hero-right {
-  scroll-behavior: smooth;
-}
-
-/* --- Responsive --- */
-@media (max-width: 768px) {
-  .hero-form-container {
-    flex-direction: column;
   }
-
-  .hero-left, .hero-right {
-    width: 100%;
-    max-width: 100%;
-    min-height: 50vh;
-  }
+  
+/* Content above all layers */
+.hero-left > * {
+  position: relative;
+  z-index: 2;
 }
+
+   /* Right pane: form (scroll container on home) */
+   .form-right {
+     width: 50%;
+     min-height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: rgb(23, 23, 23); /* base solid color */
+     padding: 3rem 2rem;
+     box-shadow: -2px 0 6px rgba(0,0,0,0.05);
+     position: relative;
+     overflow-y: auto; /* the column that can scroll */
+     /* Solid base color */
+     background: #0b0b0b; /* adjust as needed */
+   }
+   
+   .section-apply h1 { 
+    text-align: center; 
+    margin-bottom: 1rem; 
+    color: #fff;}
+   
+   /* Smooth scroll for scrollable panes */
+   .form-right { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+   
+   /* =======================
+      Home page specific containment (prevent body scroll)
+      ======================= */
+   body[data-route="home"] {
+     height: 100vh;
+     overflow: hidden; /* lock page - only form scrolls */
+   }
+   body[data-route="home"] .hero-form-container { height: 100vh; }
+   body[data-route="home"] .hero-left { height: 100vh; }
+   body[data-route="home"] .form-right { height: 100vh; overflow-y: auto; }
+   
+   /* =======================
+      FORM SCROLL FADER (LEFT CENTER)
+      ======================= */
+   .form-scroll-fader {
+     position: absolute;
+     left: 8px;                /* slight inset from left edge of form column */
+     top: 50%;
+     transform: translateY(-50%);
+     width: 6px;
+     height: 120px;
+     border-radius: 4px;
+     background: linear-gradient(
+       to bottom,
+       rgba(0,0,0,0.06),
+       rgba(0,0,0,0.18),
+       rgba(0,0,0,0.06)
+     );
+     pointer-events: none;
+     opacity: 0;
+     transition: opacity 180ms ease;
+     z-index: 6;
+   }
+   
+   /* visible when scrolling is possible */
+   .form-right.is-scrollable .form-scroll-fader,
+   .form-right.is-scrollable[aria-hidden="false"] .form-scroll-fader {
+     opacity: 1;
+   }
    
    /* =======================
       Auth Methods
@@ -140,17 +177,21 @@ body[data-route="home"] #site-header {
    }
    .auth-methods .oauth {
      padding: 0.75rem 1rem;
-     border-radius: 8px;
-     border: 1px solid #ccc;
+     border-radius: 20px;
      cursor: pointer;
      font-weight: 500;
-     transition: all 0.2s ease;
+     color:#ffffff;
+     transition: all 0.1s ease;
+     border: 1px solid #303030;
+     background-color: #0c0c0c;
    }
-   .auth-methods .oauth:hover { background-color: #e6e6e6; }
-   .auth-methods .oauth.email { border-color: #0066cc; color: #0066cc; background: #fff; }
-   .auth-methods .oauth.email:hover { background: #f0f8ff; }
-   .auth-methods .oauth.google { background-color: #4285f4; color: #fff; font-weight: bold; }
-   .auth-methods .oauth.x { background-color: #1da1f2; color: #fff; font-weight: bold; }
+   .auth-methods .oauth:hover { background-color: #1a1a1a; }
+   .auth-methods .oauth.email { border-color: #303030; color: #ffffff; background: #0c0c0c00; }
+   .auth-methods .oauth.email:hover { background: #1a1a1a; color: #ffffff; border-color: #303030; }
+   .auth-methods .oauth.google { background-color: #0c0c0c; color: #fff; font-weight: bold; border-color: #303030; }
+   .auth-methods .oauth.google:hover { background-color: #1a1a1a; color: #fff; border-color: #303030; }
+   .auth-methods .oauth.x { background-color: #0c0c0c; color: #fff; font-weight: bold; border-color: #303030; }
+    .auth-methods .oauth.x:hover { background-color: #1a1a1a; color: #fff; border-color: #303030; } 
    
    /* =======================
       Email Auth
@@ -159,9 +200,9 @@ body[data-route="home"] #site-header {
      display: flex;
      flex-direction: column;
      gap: 1rem;
-     transition: all 0.3s ease;
+     transition: all 0.1s ease;
    }
-   .email-auth label { display: flex; flex-direction: column; font-size: 0.9rem; color: #333; }
+   .email-auth label { display: flex; flex-direction: column; font-size: 0.95rem; color: #fff; }
    .email-auth input { margin-top: 0.25rem; padding: 0.5rem 0.75rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
    .email-auth input:focus { border-color: #0066cc; outline: none; }
    
@@ -169,8 +210,7 @@ body[data-route="home"] #site-header {
       Email Actions
       ======================= */
    .email-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
-   .email-actions .btn-signup,
-   .email-actions .btn-back {
+   .email-actions .btn-signup, .email-actions .btn-back {
      padding: 0.5rem 1rem;
      border-radius: 6px;
      border: none;
@@ -184,7 +224,7 @@ body[data-route="home"] #site-header {
    .email-actions .btn-back:hover { background-color: #e6e6e6; }
    
    /* =======================
-      Password Transition
+      Password Transition Helpers
       ======================= */
    .password-section,
    .email-auth input,
@@ -210,13 +250,6 @@ body[data-route="home"] #site-header {
    .legal-disclaimer { margin-top: 2rem; font-size: 0.75rem; color: #666; text-align: center; }
    
    /* =======================
-      Other Form & Trust Styles
-      ======================= */
-   .apply-note { margin-top: 2rem; font-size: 0.8rem; opacity: 0.7; text-align: center; }
-   .trust-list { margin-top: 2rem; padding-left: 1.25rem; font-size: 0.85rem; opacity: 0.75; }
-   .trust-list li { margin-bottom: 0.4rem; }
-   
-   /* =======================
       Consent Modal
       ======================= */
    .consent-modal {
@@ -226,7 +259,7 @@ body[data-route="home"] #site-header {
      display: flex;
      justify-content: center;
      align-items: center;
-     z-index: 1000;
+     z-index: 10000;
    }
    .consent-modal .modal-backdrop {
      position: absolute;
@@ -238,24 +271,23 @@ body[data-route="home"] #site-header {
      background: white;
      padding: 2rem;
      border-radius: 8px;
-     max-width: 400px;
+     max-width: 420px;
      text-align: center;
    }
-   .consent-modal .modal-footer button {
-     margin: 0 0.5rem;
-     padding: 0.5rem 1rem;
-   }
+   .consent-modal .modal-footer button { margin: 0 0.5rem; padding: 0.5rem 1rem; }
    .modal[hidden] { display: none !important; }
    
    /* =======================
-      Two-Pane Responsive
+      Responsive
       ======================= */
-   @media (max-width: 768px) {
-     .hero-form-container { flex-direction: column; }
-     .hero-left, .form-right { width: 100%; min-height: auto; }
+   @media (max-width: 960px) {
+     .hero-left { display: none; } /* optionally hide hero on smaller screens */
+     .form-right { width: 100%; box-shadow: none; padding: 1.25rem; }
+     body[data-route="home"] .hero-form-container { flex-direction: column; height: 100vh; }
+     body[data-route="home"] .hero-left { height: 28vh; min-height: 160px; display: block; }
+     body[data-route="home"] .form-right { height: calc(100vh - 28vh); }
    }
-
-   /* Hide header only on the homepage */
-body.page-home .site-header {
-  display: none;
-}
+   
+   @media (max-width: 480px) {
+     .form-scroll-fader { display: none; } /* keep mobile uncluttered */
+   }

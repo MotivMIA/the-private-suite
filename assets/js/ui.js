@@ -1,106 +1,126 @@
 // ██████████████████████████████████████████████████
 // ui.js
-// Stage 2 Apply-Form + Consent Modal
-// Fully working version
+// Stage 2 Apply Form + Consent + Scroll Fader
+// CLEAN + MERGED + LIFECYCLE-SAFE
 // ██████████████████████████████████████████████████
 
 import { startAuth } from './auth/index.js';
 import { requireConsent } from './auth/consent.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+// All UI enhancements run after template hydration
+window.addEventListener('content:hydrated', () => {
+  // -------------------------
+  // Apply / Auth form logic
+  // -------------------------
   const applyForm = document.querySelector('.section-apply');
-  if (!applyForm) return;
+  if (applyForm) {
+    const methodPanel = applyForm.querySelector('.auth-methods');
+    const emailForm = applyForm.querySelector('#auth-form'); // matches provided markup
+    if (methodPanel && emailForm) {
+      const emailInput = emailForm.querySelector('input[type="email"]');
+      const passwordInput = emailForm.querySelector('input[type="password"]');
+      const submitBtn = emailForm.querySelector('button[type="submit"]');
 
-  // Panels and form
-  const methodPanel = applyForm.querySelector('.auth-methods');
-  const emailPanel = applyForm.querySelector('.email-auth');
-  const emailForm = applyForm.querySelector('#email-auth-form');
-  if (!methodPanel || !emailPanel || !emailForm) return;
+      // defensive checks
+      const pwLabel = passwordInput ? passwordInput.closest('label') : null;
+      if (pwLabel) pwLabel.hidden = true; // start hidden
 
-  // Inputs and buttons
-  const emailInput = emailForm.querySelector('input[type="email"]');
-  const passwordInput = emailForm.querySelector('input[type="password"]');
-  const signupBtn = emailForm.querySelector('.btn-signup');
-  const backBtn = emailForm.querySelector('.btn-back');
+      // Auth method selection (OAuth + Email)
+      methodPanel.addEventListener('click', async (e) => {
+        const btn = e.target.closest('[data-provider], [data-auth]');
+        if (!btn) return;
 
-  // Initial state
-  emailPanel.hidden = true;
-  passwordInput.hidden = true;
+        // Email flow
+        if (btn.dataset.auth === 'email') {
+          methodPanel.hidden = true;
+          emailForm.hidden = false;
+          emailInput?.focus();
+          return;
+        }
 
-  // ─────────────────────────────
-  // Auth method buttons (OAuth + Email)
-  // ─────────────────────────────
-  methodPanel.addEventListener('click', async (e) => {
-    const btn = e.target.closest('[data-provider], [data-auth]');
-    if (!btn) return;
+        // OAuth flow
+        if (btn.dataset.provider) {
+          const consent = await requireConsent();
+          if (consent) startAuth(btn.dataset.provider);
+          else alert('You must accept the consent to proceed.');
+        }
+      });
 
-    // Email button
-    if (btn.dataset.auth === 'email') {
-      methodPanel.hidden = true;
-      emailPanel.hidden = false;
-      emailInput.focus();
-      return;
-    }
-
-    // OAuth buttons
-    if (btn.dataset.provider) {
-      const consentGiven = await requireConsent();
-      if (consentGiven) {
-        startAuth(btn.dataset.provider);
-      } else {
-        alert('You must accept the consent to proceed.');
+      // Progressive reveal: clicking submit first reveals password if hidden
+      if (submitBtn) {
+        submitBtn.addEventListener('click', (e) => {
+          if (pwLabel && pwLabel.hidden) {
+            e.preventDefault();
+            pwLabel.hidden = false;
+            passwordInput?.focus();
+            return;
+          }
+          // otherwise let submit handler run
+        });
       }
+
+      // Final submit with consent enforcement
+      emailForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!emailInput?.value || !passwordInput?.value) {
+          alert('Please fill out both fields.');
+          return;
+        }
+
+        const consent = await requireConsent();
+        if (!consent) {
+          alert('You must accept the consent to proceed.');
+          return;
+        }
+
+        // start email auth (adapter handles the rest)
+        startAuth('email');
+      });
     }
-  });
+  }
 
-  // ─────────────────────────────
-  // Show password after email entered
-  // ─────────────────────────────
-  signupBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (!emailInput.value) {
-      alert('Please enter your email.');
-      emailInput.focus();
-      return;
-    }
-    passwordInput.hidden = false;
-    passwordInput.focus();
-  });
+  // -------------------------
+  // Home form scroll / fader logic
+  // -------------------------
+  const homeFormContainer = document.querySelector('body[data-route="home"] .form-right');
+  if (homeFormContainer) {
+    // ensure fader element exists (template-friendly)
+    const fader = homeFormContainer.querySelector('.form-scroll-fader');
+    const updateScrollableState = () => {
+      const isScrollable = homeFormContainer.scrollHeight > homeFormContainer.clientHeight;
+      homeFormContainer.classList.toggle('is-scrollable', isScrollable);
+      if (fader) fader.style.opacity = isScrollable ? '1' : '0';
+    };
 
-  // ─────────────────────────────
-  // Back button resets flow
-  // ─────────────────────────────
-  backBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    emailForm.reset();
-    passwordInput.hidden = true;
-    emailPanel.hidden = true;
-    methodPanel.hidden = false;
-  });
+    // initial state + listen for size changes
+    updateScrollableState();
+    window.addEventListener('resize', updateScrollableState);
 
-  // ─────────────────────────────
-  // Submit form with consent
-  // ─────────────────────────────
-  emailForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    // update on content changes within the container
+    const mo = new MutationObserver(updateScrollableState);
+    mo.observe(homeFormContainer, { childList: true, subtree: true, characterData: true });
 
-    if (!emailInput.value || !passwordInput.value) {
-      alert('Please fill out both fields.');
-      return;
-    }
-
-    const consentGiven = await requireConsent();
-    if (!consentGiven) {
-      alert('You must accept the consent to proceed.');
-      return;
-    }
-
-    console.log('Email signup submitted:', {
-      email: emailInput.value,
-      password: passwordInput.value,
+    // Cleanup if route changes away (defensive)
+    window.addEventListener('route:change', () => {
+      updateScrollableState();
     });
-
-    startAuth('email');
-  });
+  }
 });
 
+const root = document.documentElement;
+const storedTheme = localStorage.getItem("theme");
+
+if (storedTheme) {
+  root.dataset.theme = storedTheme;
+}
+
+document.addEventListener("click", (e) => {
+  const toggle = e.target.closest("[data-theme-toggle]");
+  if (!toggle) return;
+
+  const next =
+    root.dataset.theme === "dark" ? "light" : "dark";
+
+  root.dataset.theme = next;
+  localStorage.setItem("theme", next);
+});

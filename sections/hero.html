@@ -1,6 +1,22 @@
-<section class="section-hero">
-  <div class="hero-content">
-    <h3>{brand.logo}{brand.name}</h3>
+<section class="section-hero hero-form-container">
+
+  <!-- LEFT: Hero visual -->
+  <div class="hero-left">
+    <div class="hero-content">
+      <h3 class="hero-brand">
+        {brand.logo}
+        <span>{brand.name}</span>
+      </h3>
+
+      <p class="hero-tagline">
+        {brand.tagline}
+      </p>
+    </div>
   </div>
-  </section>
-  
+
+  <!-- RIGHT: Form column -->
+  <div class="form-right">
+    <section data-include="/sections/apply-form.html"></section>
+  </div>
+
+</section>

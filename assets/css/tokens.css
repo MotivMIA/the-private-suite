@@ -1,0 +1,41 @@
+/* tokens.css */
+@layer tokens {
+  :root {
+    /* colors */
+    --color-bg-0: #0b0b0d;
+    --color-bg-1: #121216;
+    --color-bg-2: #1a1a20;
+
+    --color-text-0: #ffffff;
+    --color-text-1: #cfcfe6;
+    --color-text-2: #9b9bb3;
+
+    --color-accent-0: #680068;
+    --color-accent-1: #8a1b8a;
+
+    --color-border-0: rgba(255,255,255,0.08);
+
+    /* spacing */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-5: 1.5rem;
+    --space-6: 2rem;
+    --space-7: 3rem;
+
+    /* radius */
+    --radius-sm: 6px;
+    --radius-md: 12px;
+    --radius-lg: 18px;
+
+    /* shadows */
+    --shadow-soft: 0 10px 30px rgba(0,0,0,.4);
+
+    /* animation */
+    --ease-standard: cubic-bezier(.2,.8,.2,1);
+    --dur-fast: 150ms;
+    --dur-med: 300ms;
+    --dur-slow: 600ms;
+  }
+}
