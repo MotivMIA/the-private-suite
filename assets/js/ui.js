@@ -109,7 +109,14 @@ window.addEventListener('content:hydrated', () => {
 
 (function () {
   const root = document.documentElement;
-  const toggle = document.getElementById("theme-toggle");
+  const toggle = document.querySelector('[data-theme-toggle]');
+if (toggle) {
+  toggle.addEventListener('click', () => {
+    const current = document.documentElement.dataset.theme;
+    document.documentElement.dataset.theme =
+      current === 'light' ? 'dark' : 'light';
+  });
+}
   const stored = localStorage.getItem("theme");
 
   if (stored) {

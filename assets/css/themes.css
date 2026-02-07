@@ -51,3 +51,13 @@ html[data-theme="dark"] {
   --accent: #3b82f6;
   --accent-hover: #60a5fa;
 }
+
+:root[data-theme="dark"] {
+  --color-bg-primary: #000;
+  --color-text-primary: #fff;
+}
+
+:root[data-theme="light"] {
+  --color-bg-primary: #fff;
+  --color-text-primary: #000;
+}

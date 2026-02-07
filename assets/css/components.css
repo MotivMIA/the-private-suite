@@ -28,3 +28,10 @@
   position: relative;
   z-index: var(--z-content);
 }
+
+.theme-toggle {
+  background: none;
+  border: 0;
+  color: var(--color-text-primary);
+  cursor: pointer;
+}
