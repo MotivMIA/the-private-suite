@@ -1,0 +1,293 @@
+/* ██████████████████████████████████████████████████
+   main.css
+   Full homepage + auth + modal styles (merged & cleaned)
+   ██████████████████████████████████████████████████ */
+
+/* =======================
+   Reset & Base
+   ======================= */
+   * { box-sizing: border-box; margin: 0; padding: 0; }
+   html, body { height: 100%; }
+   body {
+     font-family: 'Inter', sans-serif;
+     font-size: 16px;
+     line-height: 1.5;
+     color: #1a1a1a;
+     background-color: #000000;
+   }
+   a { text-decoration: none; color: #0066cc; }
+   a:hover { text-decoration: underline; }
+   
+   /* =======================
+      Design Tokens & Errors
+      ======================= */
+   :root { --color-error: #ff4d4d; --max-form-width: 420px; }
+   .bind-error, .section-error { color: var(--color-error); font-weight: 600; background: none; padding: 0; border-radius: 0; font-style: normal; }
+   .config-fatal-error { color: var(--color-error); padding: 2rem; font-family: monospace; }
+   
+   /* =======================
+      Header & Footer
+      ======================= */
+   .site-header, .site-footer { padding: 1rem 1.25rem; }
+   .site-header { border-bottom: 1px solid rgba(0,0,0,0.06); transition: top 0.3s ease, opacity 0.3s ease; background: white; z-index: 1000; }
+   .site-footer { border-top: 1px solid rgba(0,0,0,0.06); opacity: 0.85; }
+   
+   /* Header visibility by route (router sets data-route on body) */
+   body[data-route="home"] #site-header { display: none; }
+   
+   /* =======================
+      Auth Visibility
+      ======================= */
+   body[data-auth="guest"] .requires-auth { display: none; }
+   body[data-auth="authenticated"] .guest-only { display: none; }
+   
+   /* =======================
+      Two-Pane Hero + Form (default layout)
+      ======================= */
+   .hero-form-container {
+     display: flex;
+     flex-direction: row;
+     min-height: 100vh;
+   }
+   
+/* Left pane (hero) */
+.hero-left {
+  width: 50%;
+  max-width: 50%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  position: relative;
+
+  /* Layer 1: image only */
+  background: url('../images/hero-bg.png') no-repeat 60% 25% / cover;
+  background-color: #0b0b0b;
+  opacity: 1; /* subtle fade for better text contrast */
+}
+
+/* Layer 2 + Layer 3: gradient + top/bottom fade overlay */
+.hero-left::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+
+  /* combine base gradient + edge fade */
+  background:
+    /* top & bottom fade */
+    linear-gradient(
+      to bottom,
+      rgba(0,0,0,1) 0%,
+      rgba(0,0,0,0.5) 20%,
+      rgba(0,0,0,0) 50%,
+      rgba(0,0,0,0.5) 80%,
+      rgba(0,0,0,1) 100%
+    ), 
+    /* base gradient */
+    linear-gradient(
+      to bottom,
+      rgba(104,0,104,0.6),
+      rgba(0,0,0,0.5)
+    ); 
+
+  }
+  
+/* Content above all layers */
+.hero-left > * {
+  position: relative;
+  z-index: 2;
+}
+
+   /* Right pane: form (scroll container on home) */
+   .form-right {
+     width: 50%;
+     min-height: 100vh;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background-color: rgb(23, 23, 23); /* base solid color */
+     padding: 3rem 2rem;
+     box-shadow: -2px 0 6px rgba(0,0,0,0.05);
+     position: relative;
+     overflow-y: auto; /* the column that can scroll */
+     /* Solid base color */
+     background: #0b0b0b; /* adjust as needed */
+   }
+   
+   .section-apply h1 { 
+    text-align: center; 
+    margin-bottom: 1rem; 
+    color: #fff;}
+   
+   /* Smooth scroll for scrollable panes */
+   .form-right { scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
+   
+   /* =======================
+      Home page specific containment (prevent body scroll)
+      ======================= */
+   body[data-route="home"] {
+     height: 100vh;
+     overflow: hidden; /* lock page - only form scrolls */
+   }
+   body[data-route="home"] .hero-form-container { height: 100vh; }
+   body[data-route="home"] .hero-left { height: 100vh; }
+   body[data-route="home"] .form-right { height: 100vh; overflow-y: auto; }
+   
+   /* =======================
+      FORM SCROLL FADER (LEFT CENTER)
+      ======================= */
+   .form-scroll-fader {
+     position: absolute;
+     left: 8px;                /* slight inset from left edge of form column */
+     top: 50%;
+     transform: translateY(-50%);
+     width: 6px;
+     height: 120px;
+     border-radius: 4px;
+     background: linear-gradient(
+       to bottom,
+       rgba(0,0,0,0.06),
+       rgba(0,0,0,0.18),
+       rgba(0,0,0,0.06)
+     );
+     pointer-events: none;
+     opacity: 0;
+     transition: opacity 180ms ease;
+     z-index: 6;
+   }
+   
+   /* visible when scrolling is possible */
+   .form-right.is-scrollable .form-scroll-fader,
+   .form-right.is-scrollable[aria-hidden="false"] .form-scroll-fader {
+     opacity: 1;
+   }
+   
+   /* =======================
+      Auth Methods
+      ======================= */
+   .auth-methods {
+     display: flex;
+     flex-direction: column;
+     gap: 0.75rem;
+     margin-bottom: 1rem;
+   }
+   .auth-methods .oauth {
+     padding: 0.75rem 1rem;
+     border-radius: 20px;
+     cursor: pointer;
+     font-weight: 500;
+     color:#ffffff;
+     transition: all 0.1s ease;
+     border: 1px solid #303030;
+     background-color: #0c0c0c;
+   }
+   .auth-methods .oauth:hover { background-color: #1a1a1a; }
+   .auth-methods .oauth.email { border-color: #303030; color: #ffffff; background: #0c0c0c00; }
+   .auth-methods .oauth.email:hover { background: #1a1a1a; color: #ffffff; border-color: #303030; }
+   .auth-methods .oauth.google { background-color: #0c0c0c; color: #fff; font-weight: bold; border-color: #303030; }
+   .auth-methods .oauth.google:hover { background-color: #1a1a1a; color: #fff; border-color: #303030; }
+   .auth-methods .oauth.x { background-color: #0c0c0c; color: #fff; font-weight: bold; border-color: #303030; }
+    .auth-methods .oauth.x:hover { background-color: #1a1a1a; color: #fff; border-color: #303030; } 
+   
+   /* =======================
+      Email Auth
+      ======================= */
+   .email-auth {
+     display: flex;
+     flex-direction: column;
+     gap: 1rem;
+     transition: all 0.1s ease;
+   }
+   .email-auth label { display: flex; flex-direction: column; font-size: 0.95rem; color: #fff; }
+   .email-auth input { margin-top: 0.25rem; padding: 0.5rem 0.75rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
+   .email-auth input:focus { border-color: #0066cc; outline: none; }
+   
+   /* =======================
+      Email Actions
+      ======================= */
+   .email-actions { display: flex; gap: 0.5rem; justify-content: flex-end; }
+   .email-actions .btn-signup, .email-actions .btn-back {
+     padding: 0.5rem 1rem;
+     border-radius: 6px;
+     border: none;
+     font-weight: 500;
+     cursor: pointer;
+     transition: background-color 0.2s ease;
+   }
+   .email-actions .btn-signup { background-color: #0066cc; color: #fff; }
+   .email-actions .btn-signup:hover { background-color: #005bb5; }
+   .email-actions .btn-back { background-color: #f2f2f2; color: #333; }
+   .email-actions .btn-back:hover { background-color: #e6e6e6; }
+   
+   /* =======================
+      Password Transition Helpers
+      ======================= */
+   .password-section,
+   .email-auth input,
+   .email-actions .btn-signup,
+   .email-actions .btn-back {
+     opacity: 0;
+     transform: translateY(10px);
+     transition: opacity 0.3s ease, transform 0.3s ease;
+   }
+   .password-section.visible,
+   .email-auth:not([hidden]) input,
+   .email-actions .btn-signup,
+   .email-actions .btn-back {
+     opacity: 1;
+     transform: translateY(0);
+   }
+   
+   /* =======================
+      Form Links & Legal
+      ======================= */
+   .form-links { margin-top: 1.25rem; font-size: 0.875rem; text-align: center; }
+   .form-links a { font-weight: 500; }
+   .legal-disclaimer { margin-top: 2rem; font-size: 0.75rem; color: #666; text-align: center; }
+   
+   /* =======================
+      Consent Modal
+      ======================= */
+   .consent-modal {
+     position: fixed;
+     top: 0; left: 0;
+     width: 100%; height: 100%;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     z-index: 10000;
+   }
+   .consent-modal .modal-backdrop {
+     position: absolute;
+     width: 100%; height: 100%;
+     background: rgba(0,0,0,0.5);
+   }
+   .consent-modal .modal-content {
+     position: relative;
+     background: white;
+     padding: 2rem;
+     border-radius: 8px;
+     max-width: 420px;
+     text-align: center;
+   }
+   .consent-modal .modal-footer button { margin: 0 0.5rem; padding: 0.5rem 1rem; }
+   .modal[hidden] { display: none !important; }
+   
+   /* =======================
+      Responsive
+      ======================= */
+   @media (max-width: 960px) {
+     .hero-left { display: none; } /* optionally hide hero on smaller screens */
+     .form-right { width: 100%; box-shadow: none; padding: 1.25rem; }
+     body[data-route="home"] .hero-form-container { flex-direction: column; height: 100vh; }
+     body[data-route="home"] .hero-left { height: 28vh; min-height: 160px; display: block; }
+     body[data-route="home"] .form-right { height: calc(100vh - 28vh); }
+   }
+   
+   @media (max-width: 480px) {
+     .form-scroll-fader { display: none; } /* keep mobile uncluttered */
+   }
