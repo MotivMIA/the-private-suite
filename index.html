@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <link rel="icon" href="/favicon.ico" />
-
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{BusinessDescription}" />
   <title>{BusinessName}</title>
 
-  <!-- Design System Entry -->
-  <link rel="stylesheet" href="assets/css/app.css" />
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="assets/css/main.css" />
 
   <!-- Configuration -->
   <script type="module" src="assets/js/config/site.config.js" defer></script>
@@ -22,14 +21,19 @@
   <script type="module" src="assets/js/section-loader.js" defer></script>
   <script type="module" src="assets/js/ui.js" defer></script>
 </head>
-
-<body>
+<body data-theme="light">
   <header id="site-header" role="banner">
     <section data-include="/sections/header.html"></section>
   </header>
 
   <main id="app" role="main" aria-live="polite">
-    <!-- router injects here -->
+    <div class="hero-form-container">
+      <!-- Left Hero Panel -->
+      <section class="hero-left" data-include="/sections/hero.html"></section>
+
+      <!-- Right Form Panel -->
+      <section class="form-right" data-include="/sections/apply-form.html"></section>
+    </div>
   </main>
 
   <footer id="site-footer" role="contentinfo">

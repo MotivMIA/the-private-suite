@@ -1,20 +1,14 @@
-/* themes.css */
-@layer themes {
-  [data-theme="dark"] {
-    --bg-page: var(--color-bg-0);
-    --bg-surface: var(--color-bg-1);
-    --text-primary: var(--color-text-0);
-    --text-secondary: var(--color-text-1);
-    --accent: var(--color-accent-0);
-    --border: var(--color-border-0);
-  }
+/* Dark / Light theme toggle */
+body[data-theme="dark"] {
+  --color-black: #000000;
+  --color-grey-dark: #1a1a1a;
+  --color-grey-light: #f2f2f2;
+  --color-white: #ffffff;
+}
 
-  [data-theme="light"] {
-    --bg-page: #ffffff;
-    --bg-surface: #f4f4f7;
-    --text-primary: #111;
-    --text-secondary: #444;
-    --accent: #680068;
-    --border: rgba(0,0,0,.1);
-  }
+body[data-theme="light"] {
+  --color-black: #f2f2f2;
+  --color-grey-dark: #e0e0e0;
+  --color-grey-light: #ffffff;
+  --color-white: #1a1a1a;
 }
