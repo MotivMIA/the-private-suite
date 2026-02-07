@@ -1,11 +1,10 @@
-/* =======================
-   ANIMATION & Z-INDEX TOKENS
-   ======================= */
+:root {
+  --z-base: 0;
+  --z-overlay: 1;
+  --z-content: 2;
+  --z-modal: 1000;
 
-   :root {
-    --ease-in: cubic-bezier(0.4, 0, 1, 1);
-    --ease-out: cubic-bezier(0, 0, 0.2, 1);
-    --duration-100: 100ms;
-    --duration-200: 200ms;
-    --duration-300: 300ms;
-  }
+  --ease: cubic-bezier(.4,0,.2,1);
+  --fast: 120ms;
+  --normal: 240ms;
+}

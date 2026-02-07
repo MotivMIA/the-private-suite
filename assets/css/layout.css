@@ -1,105 +1,25 @@
-/* Hero + Form split */
 .hero-form-container {
   display: flex;
   min-height: 100vh;
 }
 
-.hero-left {
-  width: 50%;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
-  position: relative;
-
-  /* Background: image + gradient */
-  background:
-    url('../images/hero-bg.png') no-repeat 60% 25% / cover,
-    linear-gradient(to bottom, rgba(104,0,104,0.5), rgba(0,0,0,0.5));
-  z-index: var(--z-hero-bg);
-}
-
-/* Fade overlay */
-.hero-left::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: var(--z-hero-fade);
-  background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 20%, rgba(0,0,0,0) 80%, rgba(0,0,0,1) 100%);
-}
-
-/* Content above all layers */
-.hero-left > * { position: relative; z-index: var(--z-content); }
-
+.hero-left,
 .form-right {
   width: 50%;
-  min-height: 100vh;
-  padding: 3rem 2rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  overflow-y: auto;
-  background-color: var(--color-grey-dark);
-  scroll-behavior: smooth;
 }
 
-/* Lock body scroll on home */
-body[data-route="home"] { overflow: hidden; height: 100vh; }
-body[data-route="home"] .hero-form-container { height: 100vh; }
-body[data-route="home"] .form-right { height: 100vh; overflow-y: auto; }
-
-/* Layout breakpoints (mobile → desktop) */
-:root {
-  --breakpoint-xs: 480px;    /* small mobile */
-  --breakpoint-sm: 640px;    /* mobile portrait */
-  --breakpoint-md: 768px;    /* tablet */
-  --breakpoint-lg: 1024px;   /* laptop */
-  --breakpoint-xl: 1280px;   /* desktop */
-  --breakpoint-2xl: 1440px;  /* large desktop */
-  --breakpoint-3xl: 1920px;  /* ultra wide */
-}
-
-/* Mobile first layout */
-.container {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-/* Tablet */
-@media (min-width: var(--breakpoint-md)) {
-  .container {
-    max-width: 720px;
+@media (max-width: 768px) {
+  .hero-form-container {
+    flex-direction: column;
   }
-}
 
-/* Laptop */
-@media (min-width: var(--breakpoint-lg)) {
-  .container {
-    max-width: 960px;
+  .hero-left {
+    height: 28vh;
+    width: 100%;
   }
-}
 
-/* Desktop */
-@media (min-width: var(--breakpoint-xl)) {
-  .container {
-    max-width: 1280px;
-  }
-}
-
-/* Large desktop */
-@media (min-width: var(--breakpoint-2xl)) {
-  .container {
-    max-width: 1440px;
-  }
-}
-
-/* Ultra wide */
-@media (min-width: var(--breakpoint-3xl)) {
-  .container {
-    max-width: 1920px;
+  .form-right {
+    width: 100%;
+    height: calc(100vh - 28vh);
   }
 }
