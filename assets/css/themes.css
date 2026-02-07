@@ -1,9 +1,16 @@
-body[data-theme="dark"] {
-  --bg: #0b0b0b;
-  --text: #ffffff;
+:root {
+  /* Light defaults */
+  --bg: #ffffff;
+  --text: #0b0d10;
+  --card: #f2f4f8;
+  --accent: #2563eb;
 }
 
-body[data-theme="light"] {
-  --bg: #ffffff;
-  --text: #111111;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0b0d10;
+    --text: #eaeaf0;
+    --card: #141821;
+    --accent: #3b82f6;
+  }
 }
