@@ -107,20 +107,20 @@ window.addEventListener('content:hydrated', () => {
   }
 });
 
-const root = document.documentElement;
-const storedTheme = localStorage.getItem("theme");
+(function () {
+  const root = document.documentElement;
+  const toggle = document.getElementById("theme-toggle");
+  const stored = localStorage.getItem("theme");
 
-if (storedTheme) {
-  root.dataset.theme = storedTheme;
-}
+  if (stored) {
+    root.setAttribute("data-theme", stored);
+  }
 
-document.addEventListener("click", (e) => {
-  const toggle = e.target.closest("[data-theme-toggle]");
-  if (!toggle) return;
+  toggle?.addEventListener("click", () => {
+    const current = root.getAttribute("data-theme");
+    const next = current === "dark" ? "light" : "dark";
 
-  const next =
-    root.dataset.theme === "dark" ? "light" : "dark";
-
-  root.dataset.theme = next;
-  localStorage.setItem("theme", next);
-});
+    root.setAttribute("data-theme", next);
+    localStorage.setItem("theme", next);
+  });
+})();

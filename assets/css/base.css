@@ -1,10 +1,13 @@
-body {
-  font-family: var(--font-sans);
+html, body {
   background: var(--bg);
   color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-input, button {
-  font-family: inherit;
-  color: inherit;
+a {
+  color: var(--accent);
+}
+
+a:hover {
+  color: var(--accent-hover);
 }
