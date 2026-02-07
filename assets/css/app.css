@@ -1,9 +1,0 @@
-/* app.css */
-@layer reset, tokens, themes, base, layout, components, utilities;
-
-@import url("./tokens.css") layer(tokens);
-@import url("./themes.css") layer(themes);
-@import url("./base.css") layer(base);
-@import url("./layout.css") layer(layout);
-@import url("./components.css") layer(components);
-@import url("./utilities.css") layer(utilities);
