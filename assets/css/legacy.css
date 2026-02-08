@@ -1,8 +1,9 @@
-/* ██████████████████████████████████████████████████
-   main.css
-   Full homepage + auth + modal styles (merged & cleaned)
-   ██████████████████████████████████████████████████ */
-
+/* =========================================
+   LEGACY COMPATIBILITY LAYER
+   TEMPORARY — DO NOT ADD NEW RULES
+   Exists only to preserve visuals during
+   CSS migration.
+   ========================================= */
 /* =======================
    Reset & Base
    ======================= */

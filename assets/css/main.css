@@ -1,7 +1,8 @@
-@import "./variables.css";
-@import "./tokens.css";
-@import "./base.css";
-@import "./layout.css";
-@import "./components.css";
-@import "./utilities.css";
-@import "./themes.css";
+@import url("./tokens.css");
+@import url("./base.css");
+@import url("./layout.css");
+@import url("./components.css");
+@import url("./sections.css");
+@import url("./utilities.css");
+@import url("./themes.css");
+@import url("./legacy.css");

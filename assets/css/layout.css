@@ -1,63 +1,20 @@
-/* =========================================
-   Breakpoints (layout.css only)
-========================================= */
-
-/* Mobile portrait: default (0–479px) */
-
-/* Mobile landscape */
-@media (min-width: 480px) {}
-
-/* Tablet */
-@media (min-width: 768px) {}
-
-/* Laptop */
-@media (min-width: 1024px) {}
-
-/* Desktop 1280+ */
-@media (min-width: 1280px) {}
-
-/* Desktop 1440+ */
-@media (min-width: 1440px) {}
-
-/* Desktop 1920+ */
-@media (min-width: 1920px) {}
+#app {
+  min-height: 100vh;
+}
 
 .hero-form-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   min-height: 100vh;
 }
 
 .hero-left,
 .form-right {
-  width: 50%;
+  padding: var(--space-lg);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .hero-form-container {
-    flex-direction: column;
-  }
-
-  .hero-left {
-    height: 28vh;
-    width: 100%;
-  }
-
-  .form-right {
-    width: 100%;
-    height: calc(100vh - 28vh);
-  }
-}
-
-/* Desktop split */
-@media (min-width: 1024px) {
-  .section-hero {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-/* Mobile collapse */
-@media (max-width: 1023px) {
-  .section-hero {
     grid-template-columns: 1fr;
   }
 }

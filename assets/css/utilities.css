@@ -1,3 +1,11 @@
-.flex { display: flex; }
-.center { align-items: center; justify-content: center; }
-.hidden { display: none !important; }
+.u-hidden {
+  display: none !important;
+}
+
+.u-center {
+  text-align: center;
+}
+
+.u-mt-lg {
+  margin-top: var(--space-lg);
+}
