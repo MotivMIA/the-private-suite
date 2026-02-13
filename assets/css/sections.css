@@ -1,8 +1,0 @@
-.section-hero {
-    min-height: 100vh;
-    display: grid;
-  }
-  
-  .hero-content {
-    z-index: 2;
-  }
